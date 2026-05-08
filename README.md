@@ -1,23 +1,23 @@
-# Efferon Projekt
+# Efferon Project
 
-Dieses Projekt besteht aus einem Frontend und einem Backend.
+This project consists of a frontend and a backend.
 
-## Voraussetzungen
+## Requirements
 
-Installiert sein sollten:
+The following should be installed:
 
-- Node.js und npm
+- Node.js and npm
 - Python
 - pip
 - uv
 
-Falls `uv` nicht installiert ist:
+If `uv` is not installed:
 
 ```bash
 pip install uv
 ```
 
-Alternativ kann `uv` je nach System auch über Homebrew installiert werden:
+Alternatively, depending on the system, `uv` can also be installed via Homebrew:
 
 ```bash
 brew install uv
@@ -25,7 +25,7 @@ brew install uv
 
 ---
 
-## Projektstruktur
+## Project Structure
 
 ```bash
 efferon/
@@ -35,39 +35,39 @@ efferon/
 
 ---
 
-## Frontend starten
+## Starting the Frontend
 
-In den Frontend-Ordner wechseln:
+Switch to the frontend folder:
 
 ```bash
 cd Frontend
 ```
 
-Abhängigkeiten installieren:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Development-Server starten:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Das Frontend läuft anschließend unter:
+The frontend will then be available at:
 
 ```text
 http://localhost:3000
 ```
 
-Optional kann ein Production-Build erstellt werden mit:
+Optionally, a production build can be created with:
 
 ```bash
 npm run build
 ```
 
-Wichtig: Nicht `npm build` verwenden. Der korrekte Befehl ist:
+Important: Do not use `npm build`. The correct command is:
 
 ```bash
 npm run build
@@ -75,49 +75,57 @@ npm run build
 
 ---
 
-## Backend starten
+## Starting the Backend
 
-In den Backend-Ordner wechseln:
+Switch to the backend folder:
 
 ```bash
 cd Backend
 ```
 
-Abhängigkeiten installieren:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Falls ein `uv.lock` und `pyproject.toml` vorhanden sind, kann alternativ bzw. zusätzlich verwendet werden:
+If a `uv.lock` and `pyproject.toml` are present, the following can alternatively or additionally be used:
 
 ```bash
 uv sync
 ```
 
-Falls eine `.env.example` vorhanden ist, diese zu `.env` kopieren:
+If a `.env.example` file is present, copy it to `.env`:
 
 ```bash
 cp .env.example .env
 ```
 
-Falls keine `.env.example` vorhanden ist, muss die `.env` manuell erstellt oder vom Projektteam bereitgestellt werden.
+If no `.env.example` file is present, the `.env` file must be created manually or provided by the project team.
 
-Backend-Server starten:
+Start the backend server:
 
 ```bash
 uv run uvicorn main:app --reload
 ```
 
-Das Backend läuft anschließend unter:
+The backend will then be available at:
 
 ```text
 http://127.0.0.1:8000
 ```
 
+After the server has started, upload and process all PDF files that should be used by running the following command from the backend folder:
+
+```bash
+cd Backend
+curl -X POST http://localhost:8000/api/index \
+  $(find data -maxdepth 1 -type f -name "*.pdf" -exec printf -- '-F files=@%s\n' {} \;)
+```
+
 ---
 
-## Kompletter Startablauf
+## Complete Startup Flow
 
 ### Terminal 1: Frontend
 
@@ -136,15 +144,23 @@ uv sync
 uv run uvicorn main:app --reload
 ```
 
+After the backend server has started, open another terminal or run the following command from the backend folder to upload and process all PDF files in the `data` folder:
+
+```bash
+cd Backend
+curl -X POST http://localhost:8000/api/index \
+  $(find data -maxdepth 1 -type f -name "*.pdf" -exec printf -- '-F files=@%s\n' {} \;)
+```
+
 ---
 
-## Häufige Fehler
+## Common Errors
 
 ### `sh: next: command not found`
 
-Dieser Fehler bedeutet, dass die Frontend-Abhängigkeiten noch nicht installiert wurden.
+This error means that the frontend dependencies have not been installed yet.
 
-Lösung:
+Solution:
 
 ```bash
 cd Frontend
@@ -156,15 +172,15 @@ npm run dev
 
 ### `Unknown command: "build"`
 
-Der Befehl wurde falsch eingegeben.
+The command was entered incorrectly.
 
-Falsch:
+Incorrect:
 
 ```bash
 npm build
 ```
 
-Richtig:
+Correct:
 
 ```bash
 npm run build
@@ -174,15 +190,15 @@ npm run build
 
 ### `zsh: command not found: uv`
 
-`uv` ist nicht installiert.
+`uv` is not installed.
 
-Lösung:
+Solution:
 
 ```bash
 pip install uv
 ```
 
-Danach erneut ausführen:
+Then run again:
 
 ```bash
 uv sync
@@ -193,19 +209,19 @@ uv run uvicorn main:app --reload
 
 ### `cp: .env.example: No such file or directory`
 
-Die Datei `.env.example` existiert nicht im aktuellen Ordner.
+The `.env.example` file does not exist in the current folder.
 
-Prüfen:
+Check:
 
 ```bash
 ls
 ```
 
-Falls keine `.env.example` vorhanden ist, muss die `.env` manuell erstellt oder aus einer anderen Quelle bereitgestellt werden.
+If no `.env.example` file is present, the `.env` file must be created manually or provided from another source.
 
 ---
 
-## Entwicklungsserver
+## Development Servers
 
 Frontend:
 
