@@ -4,7 +4,7 @@
 
 ## Sepsis-3 definitions predict ICU mortality in a low-middle-income country
 
-> The image features a circular logo with a blue outline. Inside the blue circle, there is a red bookmark shape with a pointed bottom, resembling a ribbon, positioned vertically. To the right of the logo, the text "CrossMark" is displayed in a simple, modern font, with "Cross" in black and "Mark" in a lighter shade. The overall design appears clean and professional.
+> The image features a circular logo with a blue border. Inside the circle, there is a stylized maroon ribbon or bookmark with lines suggesting text. Below the circle, the word "CrossMark" is displayed in a simple, modern font. The overall color scheme consists of blue, maroon, and gray.
 
 
 Bruno Adler Maccagnan Pinheiro Besen 1,2* , Thiago Gomes Romano 3,4 , Antonio Paulo Nassar Jr. 1,5 , Leandro Utino Taniguchi 1,3 , Luciano Cesar Pontes Azevedo 1,3 , Pedro Vitale Mendes 1,3 , Fernando Godinho Zampieri 6,7 and Marcelo Park 1
@@ -27,7 +27,7 @@ Sepsis  is  a  well-recognized  worldwide  healthcare  issue, ultimately resulti
 
 *Correspondence:  brunobesen@yahoo.com.br 1 Intensive Care Unit, Emergency Department, Hospital das Clínicas, University of São Paulo Medical School, Rua Dr. Enéas Carvalho de Aguiar, 255, Room 6040, São Paulo ZIP 05403-000, Brazil Full list of author information is available at the end of the article
 
-> The image features a logo that includes a stylized horse's head in profile, positioned to the left. To the right of the horse, the word "Springer" is written in bold, dark blue letters, and below it, the word "Open" is also in dark blue letters. An orange horizontal line runs beneath "Springer." The overall design is simple and professional.
+> The image features a logo with a stylized horse's head to the left, depicted in blue. Next to the horse head, the word "Springer" is written in a larger blue font, followed by the word "Open" in a smaller blue font. Below "Springer," there is a horizontal orange line. The overall design is simple and clean.
 
 
 © The Author(s) 2016. This article is distributed under the terms of the Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made.
@@ -153,25 +153,27 @@ Table 1  General characteristics, support measures and outcomes of patients
 
 Fig. 1 Mortality stratified according to sepsis definition. a Mortality according to the Sepsis-2 definition (Pearson's Chi-squared test using the three categories P &lt; 0.001. Pearson's Chi-squared post hoc analyses are shown in the figure). b Mortality according to the Sepsis-3 definition (Pearson's Chi-squared test using the three categories P &lt; 0.001. Pearson's Chi-squared post hoc analyses are shown in the figure)
 
-> The image includes two bar graphs labeled a and b, which display data on unadjusted ICU mortality percentages based on different sepsis definitions.
+> The image contains two bar graphs labeled "a" and "b," each showing unadjusted ICU mortality rates categorized by different definitions of sepsis.
 
 **Graph a:**
-- The Y-axis is labeled "Unadjusted ICU mortality [CI:95%]%," ranging from 0% to 60%.
-- There are three categories: "Sepsis," "Severe sepsis," and "Septic shock."
-- For "Sepsis," there are 135 patients with 18 deaths, resulting in a mortality percentage of 13%.
-- For "Severe sepsis," there are 252 patients with 43 deaths, resulting in a mortality percentage of 17%.
-- For "Septic shock," there are 572 patients with 250 deaths, resulting in a mortality percentage of 44%.
-- The mortality percentages for the categories are accompanied by error bars, and statistical significance values are provided for comparisons.
+- The Y-axis represents unadjusted ICU mortality percentages (0 to 60%).
+- There are three categories on the X-axis: "Sepsis," "Severe sepsis," and "Septic shock."
+- Corresponding data points show:
+  - Sepsis: 13% mortality (18 deaths; 135 patients)
+  - Severe sepsis: 17% mortality (43 deaths; 252 patients)
+  - Septic shock: 44% mortality (250 deaths; 572 patients)
+- Each data point has error bars indicating confidence intervals.
+- P-values are given for comparisons, with P < 0.001 for severe sepsis vs. septic shock, and P = 0.430 for sepsis vs. severe sepsis.
 
 **Graph b:**
-- The Y-axis is the same as in graph a.
-- There are three categories: "No-dysfunction," "Sepsis," and "Septic shock."
-- For "No-dysfunction," there are 103 patients with 7 deaths, resulting in a mortality percentage of 7%.
-- For "Sepsis," there are 419 patients with 106 deaths, resulting in a mortality percentage of 25%.
-- For "Septic shock," there are 435 patients with 198 deaths, resulting in a mortality percentage of 46%.
-- Similar to graph a, error bars are present, and statistical significance values are indicated for comparisons.
-
-Overall, both graphs present mortality data in relation to different sepsis definitions, highlighting significant differences in mortality rates across the categories.
+- The Y-axis is the same as graph a.
+- The categories are "No-dysfunction," "Sepsis," and "Septic shock."
+- Data points show:
+  - No-dysfunction: 7% mortality (7 deaths; 103 patients)
+  - Sepsis: 25% mortality (106 deaths; 419 patients)
+  - Septic shock: 46% mortality (198 deaths; 435 patients)
+- Similar error bars are present for each data point.
+- P-values indicate statistical significance with P < 0.001 for both comparisons from No-dysfunction to sepsis and sepsis to septic shock.
 
 
 show  clear  stratification  of  mortality  among  the  three categories (no-dysfunction, sepsis and  septic shock). Additional  file  2:  Table  1s  shows  patients'  re-allocation between  both  sepsis  definitions.  Sepsis-3  classification reduced the percentage of septic shock patients as compared to the previous definition.

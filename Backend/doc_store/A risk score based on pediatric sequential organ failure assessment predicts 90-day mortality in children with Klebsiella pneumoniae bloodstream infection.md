@@ -4,7 +4,7 @@
 
 ## A risk score based on pediatric sequential organ failure assessment predicts 90-day mortality in children with Klebsiella pneumoniae bloodstream infection
 
-> The image features a gray and white button with the text "Check for updates." It includes a circular icon with a bookmark-like shape in the center, also in gray. The overall design is simple and modern, with a flat appearance.
+> The image is a gray square button with a circular icon in the center. The icon features a bookmark shape, partially filled, accompanied by a curved line around it. Below the icon, the text "Check for updates" is written in black. The overall design has a minimalistic appearance with a light gray background.
 
 
 Shuang Li 1 † , Jingxian Liu 2 † , Feng Chen 2 , Kang Cai 1 , Jintong Tan 3 , Wei Xie 4 , Rong Qian 5 , Xiaoqin Liu 6 , Wenhong Zhang 7 , Huimin Du 1* , Ying Liu 2* and Lisu Huang 1*
@@ -25,12 +25,12 @@ Shuang Li and Jingxian Liu contributed equally to this work. 1 Department of Inf
 
 2 Division of Medical Microbiology, Department of Clinical Laboratory, Xinhua Hospital, Shanghai Jiao Tong University School of Medicine, No. 1665, Kongjiang Road, Yangpu District, Shanghai 200092, China Full list of author information is available at the end of the article
 
-> The image features a logo with a geometric design. On the left side, there is a teal triangle that points downward, beside a dark blue rectangle. To the right, the letters "BMC" are displayed in a bold, dark blue font. The overall appearance is clean and modern.
+> The image features a logo with the letters "BMC" displayed prominently. The letter "B" is in a dark blue color, followed by "M" and "C," which are also in dark blue. To the left, there is a geometric shape comprised of a teal triangle on top of a dark blue rectangle. The overall composition has a modern and professional appearance.
 
 
 © The Author(s). 2020 Open Access This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article's Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article's Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by/4.0/. The Creative Commons Public Domain Dedication waiver (http://creativecommons.org/publicdomain/zero/1.0/) applies to the data made available in this article, unless otherwise stated in a credit line to the data.
 
-> The image features a circular logo in bright green with a white lowercase "i" inside a white circle, followed by the letters "D" in a bold typeface. The overall design is simple and modern, set against a blank background.
+> The image features a circular logo that is predominantly green. Inside the circle, there is the letter "i" stylized in white, with a small dot above it. Below the "i," the letter "D" is also in white, but larger, creating the appearance of "iD" within the green circle. The logo has a smooth finish, giving it a modern look.
 
 
 (Continued from previous page)
@@ -157,23 +157,21 @@ Table 2 Mortality predictors at the onset of Klebsiella pneumoniae bloodstream i
 | 3, n (%)                                            | 28 (19.2)         | 17 (15.0)             | 11 (33.3)                |           |
 | ≥ 4, n (%)                                          | 30 (20.5)         | 17 (15.0)             | 13 (39.3)                |           |
 
-> The image features a bar graph. The x-axis is labeled "Organ failure(s)" with four categories: "≤ One," "Two," "Three," and "≥ Four." The y-axis represents the "Number of patients (%)" ranging from 0 to 100%.
+> The image presents a bar graph depicting the relationship between organ failures and the number of patients categorized as survivors and non-survivors. 
 
-There are two sets of bars for each category on the x-axis:
+- The horizontal axis is labeled "Organ failure(s)" and lists four categories: "≤ One," "Two," "Three," and "≥ Four."
+- The vertical axis is labeled "Number of patients (%)" but does not display a specific range.
+- There are two groups of bars for each category:
+  - The lighter bars represent survivors (shown in gray).
+  - The darker bars represent non-survivors (shown in black).
+  
+- Specific numbers are noted next to the bars:
+  - For "≤ One": 49 survivors and 4 non-survivors.
+  - For "Two": 30 survivors and 5 non-survivors.
+  - For "Three": 17 survivors and 11 non-survivors.
+  - For "≥ Four": 17 survivors and 13 non-survivors. 
 
-- **Survivors** are represented by light gray bars, with values of:
-  - ≤ One: 49
-  - Two: 30
-  - Three: 17
-  - ≥ Four: 17
-
-- **Non-survivors** are depicted with black bars, with values of:
-  - ≤ One: 4
-  - Two: 5
-  - Three: 11
-  - ≥ Four: 13
-
-The light gray bars consistently show higher percentages compared to the black bars across all categories.
+The graph visually illustrates how the number of organ failures correlates with the proportion of survivors and non-survivors.
 
 
 ## Antimicrobial treatments in patients infected with CR-Kp
@@ -230,11 +228,14 @@ In this 10-year retrospective study, we aimed to investigate the early predictor
 
 Fig. 2 Receiver operating characteristic curves of the original SOFA score and the Kp-specific SOFA score for predicting 90-day mortality. The Kpspecific SOFA score was developed by multivariate regression (Logit [mortality] = -5.86 + 0.53 × [SOFA score] + 1.81 × [prior hospitalization, 0 or 1] + 1.83 × [intra-abdominal source, 0 or 1]). The difference in AUC values between the two models was significant according to the DeLong ' s test ( P &lt; 0.01)
 
-> The image shows two receiver operating characteristic (ROC) curves plotted on a graph. The x-axis represents "1 - Specificity," ranging from 0 to 1, while the y-axis represents "Sensitivity," also ranging from 0 to 1. 
+> The image displays two receiver operating characteristic (ROC) curves plotted on a graph. 
 
-One curve is represented by a solid black line, labeled as "Kp-specific SOFA," with an area under the curve (AUC) value of 0.89. The other curve is depicted with a dotted black line, labeled simply as "SOFA," with an AUC value of 0.80. 
-
-Additionally, there is a diagonal gray line extending from the bottom left to the top right of the graph, which indicates the line of no discrimination. The curves are positioned above this line, suggesting they have predictive value.
+- The y-axis represents sensitivity, ranging from 0 to 1, while the x-axis represents 1 minus specificity, also ranging from 0 to 1. 
+- There are two curves: 
+  - A solid black line labeled "Kp-specific SOFA" that has an area under the curve (AUC) value of 0.89.
+  - A dotted line labeled "SOFA" with an AUC value of 0.80.
+- The diagonal gray line from the bottom left to the top right represents a reference line indicating no discrimination.
+- The Kp-specific SOFA curve is positioned above the SOFA curve, suggesting better performance for predicting 90-day mortality.
 
 
 In recent years, the global prevalence of K. pneumoniae has increased rapidly. A multi-center study in the US reported a 3.8% point prevalence of K. pneumoniae [24]. In China, the prevalence of K. pneumoniae was found to be 12.0% among 244,843 clinical isolates, of which 19.1% were collected from the bloodstream [25]. The overall mortality reported in the literature for adult patients was as high as 29.3% [26]. In our pediatric study, the 90-day mortality was 22.6%, which was higher than that reported previously in a tertiary children ' s hospital in China (12.3%) [6]. The common presence of multiple organ failure at the onset of Kp-BSI in our study population might explain the high mortality rate. As K. pneumoniae is able to evade early innate immune reactions, it can cause systemic toxicity and result in multi-organ failure [27]. Septic shock and mechanical ventilation at the early stages of Kp-BSI are considered
@@ -251,17 +252,15 @@ HR hazard ratio strong risk factors for mortality [6, 28]. In our study, the res
 
 Fig. 3 Ninety-day survival probabilities at three risk categories (score ≤ 8, 9 -11 and ≥ 12) after the onset of Klebsiella pneumoniae bloodstream infection in children estimated by the Kaplan-Meier analysis (log-rank test, P &lt;0.01)
 
-> The image presents a Kaplan-Meier survival curve depicting survival probabilities over time for three categories of risk scores related to Klebsiella pneumoniae bloodstream infection. 
+> The image displays a Kaplan-Meier survival curve with three lines representing different risk categories based on scores: 
 
-- The vertical axis represents "Survival probability," ranging from 0.00 to 1.00.
-- The horizontal axis denotes "Survival times, days," with labeled intervals at 0, 25, 50, and 75 days.
+1. **Solid line** (Score ≤ 8, n = 93): This line remains at 1.00 for the initial days and gradually declines, with a steeper drop noticeable around day 50.
+   
+2. **Dotted line** (Score 9-11, n = 28): This line starts below the solid line and fluctuates slightly, showing a less consistent decline at lower survival probabilities.
 
-Three lines represent the survival probabilities for different risk scores:
-1. A solid line for the score category ≤ 8 (n = 93), indicating the highest survival probability that decreases gradually.
-2. A dotted line for the score category 9-11 (n = 28), showing a moderate survival probability with a more pronounced decline.
-3. A dashed line for the score category ≥ 12 (n = 25), featuring the lowest survival probability, also declining sharply.
+3. **Dashed line** (Score ≥ 12, n = 25): This line starts at the lowest point and declines steadily, reflecting the poorest survival probabilities over time.
 
-At the bottom, a table lists the "Number at risk" corresponding to each score group over the different time intervals. The numbers at risk decrease over time for each category.
+The vertical axis shows "Survival probability" ranging from 0.00 to 1.00, while the horizontal axis indicates "Survival times, days" from 0 to 75. Below the curves, a box notes the number at risk for each category at different time points (initially 93, 28, and 25, respectively).
 
 
 Apart from organ failure, there was a significant difference in mortality between patients withand patients withoutprior hospitalization in the last six months, though significant difference in the specific categories of comorbidity was not observed. Impaired host defense in children with severe underlying conditions is responsible for severe sepsis and poor prognosis [29]. Additionally, complicated intra-abdominal infections, including necrotizing enterocolitis, bacterial peritonitis, and intraabdominal sepsis associated with bowel perforation, are serious complications in premature babies and children recovering from surgery or with other serious conditions. The gastrointestinal system is considered critical for the host resistance to sepsis, with the bacterial translocation and microbiota disturbances in critically ill patients supporting the concept of impaired communication across the gut-organ axes [30, 31]. Moreover, tissue damage caused by intra-abdominal sepsis can be a source of pro-inflammatory cytokines that induce distant organ failure [32]. Compromised gut-barrier functions also perturb the clearance of bacteria and endotoxins from the systemic circulation [33]. In this study, the intra-abdominal source of bloodstream infection was associated with the worst prognosis. However, the impact of the primary infection site on mortality in patients with Kp-BSI is controversial and needs to be investigated further [34, 35].
@@ -370,4 +369,4 @@ The authors report no relationships that could be construed as a potential confl
 
 Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.
 
-> The image consists of a logo featuring the letters "BMC." The text is styled in a bold font. To the left, there is a geometric shape that forms a triangle, colored in teal. The rest of the logo is displayed predominantly in dark blue.
+> The image displays a logo consisting of the letters "BMC." The letter "B" is stylized and is in a dark blue color, while the letters "MC" are also dark blue. To the left of the text, there is a geometric shape composed of a triangle in teal and a dark blue triangle, arranged to form a larger triangular shape. The overall design has a clean and modern aesthetic.
