@@ -173,31 +173,68 @@ def extract_paper_metadata(client: OpenAI, doc: Any) -> dict[str, Any]:
 
 # ── Study-field extraction → index.md ────────────────────────────────────────
 
+# ── Study + phenotype extraction → index.md ───────────────────────────────────
+
+class StudyLevelSummary(BaseModel):
+    """Study-level extraction for clustering / phenotype papers."""
+    study: str = Field(description="Short study label, e.g. Donzelli 2019")
+    country: str = Field(description="Country where the study was conducted")
+    setting: str = Field(description="Clinical setting, e.g. ICU, ED, ward, multicenter ICU")
+    sample_size: str = Field(description="Sample size, e.g. N=1476")
+    sepsis_definition: str = Field(description="Sepsis definition used, e.g. Sepsis-3, Sepsis-2, suspected infection")
+    method: str = Field(description="Clustering or phenotyping method, e.g. k-means clustering, hierarchical clustering, latent class analysis")
+    clusters: str = Field(description="Number and labels of clusters, e.g. 4 (A-D)")
+    variables: str = Field(description="Number and type of variables used, e.g. 18 vars; vitals, labs, SOFA components")
+
+
+class PhenotypeCluster(BaseModel):
+    """One phenotype / cluster described in the paper."""
+    study: str = Field(description="Short study label, e.g. Donzelli 2019")
+    cluster: str = Field(description="Cluster label or phenotype name, e.g. A, B, C, D, alpha, beta")
+    key_features: str = Field(description="Key clinical, laboratory, biomarker, or organ dysfunction features")
+    clinical_description: str = Field(description="Interpretive clinical phenotype description")
+    outcomes: str = Field(description="Outcomes for this cluster, e.g. mortality, ICU mortality, organ failure, LOS")
+    notes: str = Field(description="Additional caveats, biomarker notes, treatment-response notes, or uncertainty")
+
+
 class StudyEntry(BaseModel):
-    """One predictor/comparison evaluated in the paper."""
+    """Structured extraction from one paper."""
     study_title: str = Field(description="Full study title")
     authors: str = Field(description="Authors separated by semicolons")
     year: Optional[int] = Field(default=None, description="Publication year as integer")
     journal: str = Field(description="Journal name")
     doi: str = Field(description="DOI string, e.g. 10.xxxx/xxxxx")
     keywords: str = Field(description="Keywords separated by semicolons")
+
+    # original fields
     population: str = Field(description="Study population and setting")
-    sample_size: str = Field(description="Sample size, e.g. N=286 total; N=163 non-survivors; N=123 survivors")
-    predictor: str = Field(description="The predictor score or variable being evaluated, including full name and abbreviation")
-    outcome: str = Field(description="Primary outcome measured, e.g. 30-day mortality")
-    timing: str = Field(description="When the predictor was measured relative to admission or event")
-    method: str = Field(description="Statistical methods: study design, ROC analysis, tests used")
-    effect_size: str = Field(description="Cutoffs, medians with p-values, or other effect size measures")
-    performance: str = Field(description="AUC with CI, sensitivity, specificity, PPV, NPV, accuracy")
-    notes: str = Field(description="Comparison notes or caveats relative to other predictors in the paper")
-    summary: str = Field(description="One- or two-sentence clinical summary of findings for this predictor")
-    source: str = Field(description="Section(s) and page numbers where data were found")
+    sample_size: str = Field(description="Sample size, e.g. N=286 total")
+    predictor: str = Field(description="Predictor, score, variable, clustering input, or phenotyping approach")
+    outcome: str = Field(description="Primary outcome measured")
+    timing: str = Field(description="When predictors or clustering variables were measured")
+    method: str = Field(description="Study design and statistical / clustering methods")
+    effect_size: str = Field(description="Effect sizes, cutoffs, group differences, or cluster-defining statistics")
+    performance: str = Field(description="AUC, sensitivity, specificity, mortality, outcome gradients, or validation metrics")
+    notes: str = Field(description="Comparison notes, caveats, or limitations")
+    summary: str = Field(description="One- or two-sentence clinical summary")
+    source: str = Field(description="Section(s), table(s), figure(s), and page numbers where data were found")
+
+    # new fields
+    study_level_summary: StudyLevelSummary = Field(
+        description="Study-level clustering / phenotype summary row"
+    )
+    phenotype_clusters: list[PhenotypeCluster] = Field(
+        description="One row per phenotype, cluster, latent class, subgroup, or clinical phenotype"
+    )
 
 
 def extract_study_fields(markdown_text: str) -> StudyEntry:
-    """LangChain structured-output call that extracts exactly one study entry per document."""
+    """LangChain structured-output call that extracts one study entry plus phenotype tables."""
     model = os.getenv("OPENAI_LLM_MODEL", "gpt-4o-mini")
-    _log("study-fields", f"model={model}  md_chars={len(markdown_text)}  sending={min(len(markdown_text), 15_000)}")
+    _log(
+        "study-fields",
+        f"model={model}  md_chars={len(markdown_text)}  sending={min(len(markdown_text), 20_000)}",
+    )
 
     llm = ChatOpenAI(
         model=model,
@@ -207,21 +244,116 @@ def extract_study_fields(markdown_text: str) -> StudyEntry:
     structured_llm = llm.with_structured_output(StudyEntry)
 
     prompt = (
-        "You are a medical-literature analyst. "
-        "Extract a single summary entry for the research paper below. "
-        "If the paper evaluates multiple predictors, list them all in the Predictor field "
-        "and combine their performance metrics in the Performance field. "
-        "Use null for missing numeric fields. Authors and keywords must be semicolon-separated strings.\n\n"
-        f"---PAPER START---\n{markdown_text[:15_000]}\n---PAPER END---"
+        "You are a medical-literature analyst extracting data from sepsis phenotype, "
+        "subphenotype, clustering, latent class, or subgroup studies.\n\n"
+        "Extract exactly one structured entry for the paper below.\n\n"
+        "In addition to general study metadata, extract two table-ready structures:\n\n"
+        "1) STUDY-LEVEL SUMMARY with these fields:\n"
+        "- Study\n"
+        "- Country\n"
+        "- Setting\n"
+        "- Sample Size\n"
+        "- Sepsis Def\n"
+        "- Method\n"
+        "- Clusters\n"
+        "- Variables\n\n"
+        "2) PHENOTYPE / CLUSTER-LEVEL TABLE with one row per cluster or phenotype:\n"
+        "- Study\n"
+        "- Cluster\n"
+        "- Key Features\n"
+        "- Clinical Description\n"
+        "- Outcomes\n"
+        "- Notes\n\n"
+        "Rules:\n"
+        "- Use the exact terminology from the paper where possible.\n"
+        "- If cluster names are alpha/beta/gamma/delta, preserve those names.\n"
+        "- If clusters are numbered or lettered, preserve the paper's labels.\n"
+        "- For Key Features, include the main differentiating variables such as SOFA, lactate, "
+        "platelets, creatinine, bilirubin, inflammatory markers, shock, organ dysfunction, "
+        "age, comorbidity, or treatment-response variables.\n"
+        "- For Outcomes, include mortality, ICU mortality, 28-day mortality, hospital mortality, "
+        "organ failure, ICU length of stay, or treatment interaction if reported.\n"
+        "- If a field is not reported, write 'Not reported'.\n"
+        "- Do not invent numerical values.\n"
+        "- Authors and keywords must be semicolon-separated strings.\n"
+        "- Year must be an integer or null.\n\n"
+        f"---PAPER START---\n{markdown_text[:20_000]}\n---PAPER END---"
     )
 
     entry: StudyEntry = structured_llm.invoke(prompt)
     _log("study-fields", f"extracted entry doi={entry.doi!r}")
+    _log("study-fields", f"clusters extracted={len(entry.phenotype_clusters)}")
     return entry
 
 
+def _format_markdown_table(headers: list[str], rows: list[list[str]]) -> str:
+    """Create a simple markdown table."""
+    def clean(value: Any) -> str:
+        text = str(value) if value is not None else ""
+        text = text.replace("\n", " ").replace("|", "\\|").strip()
+        return text or "Not reported"
+
+    header_row = "| " + " | ".join(headers) + " |"
+    sep_row = "| " + " | ".join(["---"] * len(headers)) + " |"
+    body_rows = [
+        "| " + " | ".join(clean(cell) for cell in row) + " |"
+        for row in rows
+    ]
+    return "\n".join([header_row, sep_row, *body_rows])
+
+
 def _format_study_entry(entry: StudyEntry) -> str:
+    study_summary = entry.study_level_summary
+
+    study_level_table = _format_markdown_table(
+        headers=[
+            "Study",
+            "Country",
+            "Setting",
+            "Sample Size",
+            "Sepsis Def",
+            "Method",
+            "Clusters",
+            "Variables",
+        ],
+        rows=[
+            [
+                study_summary.study,
+                study_summary.country,
+                study_summary.setting,
+                study_summary.sample_size,
+                study_summary.sepsis_definition,
+                study_summary.method,
+                study_summary.clusters,
+                study_summary.variables,
+            ]
+        ],
+    )
+
+    phenotype_table = _format_markdown_table(
+        headers=[
+            "Study",
+            "Cluster",
+            "Key Features",
+            "Clinical Description",
+            "Outcomes",
+            "Notes",
+        ],
+        rows=[
+            [
+                cluster.study,
+                cluster.cluster,
+                cluster.key_features,
+                cluster.clinical_description,
+                cluster.outcomes,
+                cluster.notes,
+            ]
+            for cluster in entry.phenotype_clusters
+        ],
+    )
+
     return (
+        f"## {entry.study_title}\n\n"
         f"**Study Title:** {entry.study_title}  \n"
         f"**Authors:** {entry.authors}  \n"
         f"**Year:** {entry.year}  \n"
@@ -230,16 +362,20 @@ def _format_study_entry(entry: StudyEntry) -> str:
         f"**Keywords:** {entry.keywords}  \n"
         f"**Population:** {entry.population}  \n"
         f"**Sample Size:** {entry.sample_size}  \n"
-        f"**Predictor:** {entry.predictor}  \n"
+        f"**Predictor / Phenotyping Approach:** {entry.predictor}  \n"
         f"**Outcome:** {entry.outcome}  \n"
         f"**Timing:** {entry.timing}  \n"
         f"**Method:** {entry.method}  \n"
         f"**Effect Size:** {entry.effect_size}  \n"
-        f"**Performance:** {entry.performance}  \n"
+        f"**Performance / Outcomes:** {entry.performance}  \n"
         f"**Notes:** {entry.notes}  \n"
         f"**Summary:** {entry.summary}  \n"
-        f"**Source:** {entry.source}  \n"
-        "\n---\n\n"
+        f"**Source:** {entry.source}  \n\n"
+        "### STUDY-LEVEL SUMMARY\n\n"
+        f"{study_level_table}\n\n"
+        "### PHENOTYPE / CLUSTER-LEVEL TABLE\n\n"
+        f"{phenotype_table}\n\n"
+        "---\n\n"
     )
 
 
@@ -247,11 +383,15 @@ def _existing_dois(index_path: Path) -> set[str]:
     """Return DOIs already recorded in index.md."""
     if not index_path.exists():
         return set()
-    return {
-        line.removeprefix("**Doi:**").strip().rstrip("  ")
-        for line in index_path.read_text(encoding="utf-8").splitlines()
-        if line.startswith("**Doi:**")
-    }
+
+    dois: set[str] = set()
+    for line in index_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("**Doi:**"):
+            doi = line.removeprefix("**Doi:**").strip().rstrip("  ")
+            if doi and doi.lower() != "not reported":
+                dois.add(doi)
+
+    return dois
 
 
 def append_to_index_md(entry: StudyEntry, index_path: Path) -> None:

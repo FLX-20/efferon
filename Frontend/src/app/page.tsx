@@ -85,7 +85,7 @@ export default function Home() {
             {menuOpen && (
               <div className="burger-dropdown">
                 <button type="button" onClick={() => navigateTo("/datei-upload")}>
-                  Datei-Upload
+                  Data Upload
                 </button>
 
                 <button
@@ -93,6 +93,13 @@ export default function Home() {
                   onClick={() => navigateTo("/counterfactual-mortality-estimation")}
                 >
                   Counterfactual Mortality Estimation
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => navigateTo("/sepsis-phenotype-extraction")}
+                >
+                  Sepsis Phenotype Extraction
                 </button>
               </div>
             )}

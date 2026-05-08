@@ -1,124 +1,220 @@
-# Sepsis Research Agent API
+# Efferon Projekt
 
-RAG pipeline for querying indexed sepsis research papers, exposed as a FastAPI HTTP service.
+Dieses Projekt besteht aus einem Frontend und einem Backend.
 
-## Setup
+## Voraussetzungen
+
+Installiert sein sollten:
+
+- Node.js und npm
+- Python
+- pip
+- uv
+
+Falls `uv` nicht installiert ist:
 
 ```bash
-cp Backend/.env.example Backend/.env  # fill in OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY
-cd Backend && pip install -r requirements.txt
+pip install uv
 ```
 
-## Start the backend
+Alternativ kann `uv` je nach System auch über Homebrew installiert werden:
 
 ```bash
-cd Backend && uv run uvicorn main:app --reload
-```
-
-Runs on `http://localhost:8000`. Interactive docs available at `http://localhost:8000/docs`.
-
-## Start the frontend
-
-```bash
-cd Frontend && npm run dev
-```
-
-Runs on `http://localhost:3000`.
-
----
-
-## API Endpoints
-
-### Health check
-
-```bash
-curl http://localhost:8000/health
+brew install uv
 ```
 
 ---
 
-### Chat (RAG query)
-
-Basic query:
+## Projektstruktur
 
 ```bash
-curl -X POST http://localhost:8000/api/chat \
-  -F "message=Why was it important to test Sepsis-3 definitions outside high-income countries?"
-```
-
-With session ID (maintains conversation memory across turns):
-
-```bash
-curl -X POST http://localhost:8000/api/chat \
-  -F "message=What is the main finding?" \
-  -F "session_id=my-session-123"
-
-curl -X POST http://localhost:8000/api/chat \
-  -F "message=Which paper was that from?" \
-  -F "session_id=my-session-123"
+efferon/
+├── Frontend/
+└── Backend/
 ```
 
 ---
 
-### Index PDFs
+## Frontend starten
 
-Single file:
+In den Frontend-Ordner wechseln:
 
 ```bash
-curl -X POST http://localhost:8000/api/index \
-  -F "files=@data/Besen_2016.pdf"
+cd Frontend
 ```
 
-Multiple files:
+Abhängigkeiten installieren:
 
 ```bash
-curl -X POST http://localhost:8000/api/index \
-  -F "files=@data/Besen_2016.pdf" \
-  -F "files=@data/Li_2020.pdf"
+npm install
 ```
 
----
-
-### List all indexed documents
+Development-Server starten:
 
 ```bash
-curl http://localhost:8000/api/documents
+npm run dev
 ```
 
----
+Das Frontend läuft anschließend unter:
 
-### Delete a document by UUID
-
-```bash
-curl -X DELETE "http://localhost:8000/api/documents?doc_hash=3912037316751052580"
+```text
+http://localhost:3000
 ```
 
-### Delete a document by name
+Optional kann ein Production-Build erstellt werden mit:
 
 ```bash
-curl -X DELETE "http://localhost:8000/api/documents?name=Besen_2016"
+npm run build
 ```
 
----
-
-### Delete all documents
+Wichtig: Nicht `npm build` verwenden. Der korrekte Befehl ist:
 
 ```bash
-curl -X DELETE http://localhost:8000/api/documents/all
+npm run build
 ```
 
 ---
 
-### Study index
+## Backend starten
 
-Get the full index (all papers):
+In den Backend-Ordner wechseln:
 
 ```bash
-curl http://localhost:8000/api/index/entries
+cd Backend
 ```
 
-Get a specific entry by number (1-based):
+Abhängigkeiten installieren:
 
 ```bash
-curl http://localhost:8000/api/index/entries/1
+pip install -r requirements.txt
+```
+
+Falls ein `uv.lock` und `pyproject.toml` vorhanden sind, kann alternativ bzw. zusätzlich verwendet werden:
+
+```bash
+uv sync
+```
+
+Falls eine `.env.example` vorhanden ist, diese zu `.env` kopieren:
+
+```bash
+cp .env.example .env
+```
+
+Falls keine `.env.example` vorhanden ist, muss die `.env` manuell erstellt oder vom Projektteam bereitgestellt werden.
+
+Backend-Server starten:
+
+```bash
+uv run uvicorn main:app --reload
+```
+
+Das Backend läuft anschließend unter:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## Kompletter Startablauf
+
+### Terminal 1: Frontend
+
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+### Terminal 2: Backend
+
+```bash
+cd Backend
+pip install -r requirements.txt
+uv sync
+uv run uvicorn main:app --reload
+```
+
+---
+
+## Häufige Fehler
+
+### `sh: next: command not found`
+
+Dieser Fehler bedeutet, dass die Frontend-Abhängigkeiten noch nicht installiert wurden.
+
+Lösung:
+
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+---
+
+### `Unknown command: "build"`
+
+Der Befehl wurde falsch eingegeben.
+
+Falsch:
+
+```bash
+npm build
+```
+
+Richtig:
+
+```bash
+npm run build
+```
+
+---
+
+### `zsh: command not found: uv`
+
+`uv` ist nicht installiert.
+
+Lösung:
+
+```bash
+pip install uv
+```
+
+Danach erneut ausführen:
+
+```bash
+uv sync
+uv run uvicorn main:app --reload
+```
+
+---
+
+### `cp: .env.example: No such file or directory`
+
+Die Datei `.env.example` existiert nicht im aktuellen Ordner.
+
+Prüfen:
+
+```bash
+ls
+```
+
+Falls keine `.env.example` vorhanden ist, muss die `.env` manuell erstellt oder aus einer anderen Quelle bereitgestellt werden.
+
+---
+
+## Entwicklungsserver
+
+Frontend:
+
+```text
+http://localhost:3000
+```
+
+Backend:
+
+```text
+http://127.0.0.1:8000
 ```
